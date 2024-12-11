@@ -138,15 +138,18 @@ def display_confusion_matrix(data, model):
 def gather_inputs(selected_features, data):
     """
     Csúszkák generálása felhasználói bemeneti értékekhez.
+    Az alapértelmezett értékek az adatok átlagai.
     """
     inputs = {}
     for feature in selected_features:
-        max_value = data[feature].max() * 2
+        avg_value = data[feature].mean()  # Az adott oszlop átlaga
+        max_value = data[feature].max() * 1.5  # Max határérték (biztonsági tartomány)
+        min_value = data[feature].min() * 0.5  # Min határérték (biztonsági tartomány)
         inputs[feature] = st.slider(
             f"{feature.capitalize()}",
-            min_value=0.0,
+            min_value=float(min_value),
             max_value=float(max_value),
-            value=float(max_value / 2),
+            value=float(avg_value),  # Alapértelmezett érték az átlag
             step=0.01,
             key=f"slider_{feature}"
         )
