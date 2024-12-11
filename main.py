@@ -1,8 +1,9 @@
 import os
+import subprocess
 from utils import download_and_extract_wine_quality_data, load_config
 from data_cleaning import check_and_clean_data
 from model_training import train_neural_network
-import subprocess
+
 import pandas as pd
 import pickle
 

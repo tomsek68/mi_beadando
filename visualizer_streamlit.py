@@ -71,6 +71,10 @@ def main():
     # Adatok szűrése a modell jellemzőire
     try:
         wine_data_filtered = prepare_data(wine_data, selected_features + ["quality"])
+        if len(selected_features) != model.n_features_in_:
+            st.warning("A betöltött modell és az adatok jellemzőinek száma nem egyezik. Az adatok igazítása automatikusan megtörténik.")
+            selected_features = selected_features[:model.n_features_in_]
+            wine_data_filtered = prepare_data(wine_data, selected_features + ["quality"])
     except KeyError as e:
         st.error(f"Hiba: Az adathalmaz nem tartalmazza a szükséges jellemzőket: {e}")
         return

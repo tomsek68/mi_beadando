@@ -101,6 +101,14 @@ def prepare_data(data, selected_features):
     Adatok szűrése a modell által elvárt jellemzőkre.
     """
     try:
+        # Ellenőrizzük, hogy a jellemzők száma egyezik-e
+        available_features = list(data.columns)
+        missing_features = [feature for feature in selected_features if feature not in available_features]
+        
+        if missing_features:
+            raise KeyError(f"Hiányzó jellemzők: {missing_features}")
+
+        # Csak a szükséges jellemzőket hagyjuk meg
         return data[selected_features]
     except KeyError as e:
         st.error(f"Hiányzó jellemző az adatokban: {e}")
@@ -113,6 +121,11 @@ def display_confusion_matrix(data, model):
     """
     X = data.drop("quality", axis=1)
     y = data["quality"]
+
+    if X.shape[1] != model.n_features_in_:
+        st.error(f"Az adatok jellemzőinek száma ({X.shape[1]}) nem egyezik a modell elvárásaival ({model.n_features_in_}).")
+        return
+
     y_pred = model.predict(X)
     accuracy = accuracy_score(y, y_pred)
     st.write(f"Pontosság az adatokon: **{accuracy:.2f}**")
