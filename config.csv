@@ -1,0 +1,6 @@
+key,value
+url,https://archive.ics.uci.edu/static/public/186/wine+quality.zip
+project_folder,./WineQualityProject
+red_wine_file,winequality-red.csv
+white_wine_file,winequality-white.csv
+names_file,winequality.names
