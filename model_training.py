@@ -91,7 +91,7 @@ def perform_grid_search(X_train, y_train, X_test, y_test):
     }
 
     grid = GridSearchCV(
-        estimator=MLPClassifier(max_iter=1000, random_state=42),
+        estimator=MLPClassifier(max_iter=10000, random_state=42),
         param_grid=param_grid,
         scoring='accuracy',
         cv=3,
